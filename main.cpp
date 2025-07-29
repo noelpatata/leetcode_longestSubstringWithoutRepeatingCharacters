@@ -1,51 +1,49 @@
 #include <iostream>
-bool contains(const char arr[], int size, char target){
+
+int contains(const std::string arr, int size, char target){
     for(int i = 0; i<size; i++){
         if(arr[i] == target){
-           return true; 
+           return i; 
         }
     }
-    return false;
+    return -1;
 }
+
 int lengthOfLongestSubstring(std::string s) {
     if(s.length() > 5000 || s.length() < 1 ) { return 0;};
-
-    int maxLength = 0;
-    int currMaxLength = 0;
+    
     int stringLength = s.length();
-    int maxValues[stringLength];
-    char values [stringLength];
-    int maxValuesArrayIndex = 0;
-     
-    for(int i = 0; i<stringLength; i++){
-        if(s[i] == s[i+1] ||
-            contains(values, stringLength, s[i]) ||
-            i == s.length() - 1){
+    std::string currString;
+    std:: string maxString;
 
-            if(maxLength < currMaxLength){
-                maxLength = currMaxLength;
+    for(int i = 0; i < stringLength; i++){
+
+        currString += s[i];
+
+        if(contains(currString, stringLength, s[i+1]) >= 0){
+            if(currString.length() > maxString.length()){
+                maxString = currString;
             }
-
-            maxValues[maxValuesArrayIndex] = currMaxLength;
             
-            currMaxLength = 0;
-            maxValuesArrayIndex++;
-            continue;
+            i = contains(currString, stringLength, s[i+1]);
+            currString = "";
         }
-
-        values[i] = s[i];
-        currMaxLength++;
         
+
     }
 
-    return maxLength == 0 ? 1 : maxLength;
+    if(currString.length() > maxString.length()){ maxString = currString; }
+
+    return maxString.length() == 0 ? 1 : maxString.length();
 }
 
 
 int main() {
-    std::string arr [4] = {"au", "abcabcbb", "bbbbb", "pwwkew"};
-    for(int i = 0; i < size(arr); i++){
+    std::string arr [4] = {"dvdf"};
+    for(int i = 0; i < 4; i++){
         std::string input = arr[i];
+        if(input.length() <= 0){ continue; }
+
         int result = lengthOfLongestSubstring(input);
         std::cout << "Length of input: " << input.length() << std::endl;
         std::cout << "Length of the longest substring without repeating characters: " << result << std::endl;
