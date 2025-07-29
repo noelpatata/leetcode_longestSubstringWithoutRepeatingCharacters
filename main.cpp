@@ -25,7 +25,7 @@ int lengthOfLongestSubstring(std::string s) {
                 maxString = currString;
             }
             
-            i = contains(currString, stringLength, s[i+1]);
+            i = contains(currString, stringLength, s[i+1])+1;
             currString = "";
         }
         
@@ -39,7 +39,7 @@ int lengthOfLongestSubstring(std::string s) {
 
 
 int main() {
-    std::string arr [4] = {"dvdf"};
+    std::string arr [4] = {"abcabcbb"};
     for(int i = 0; i < 4; i++){
         std::string input = arr[i];
         if(input.length() <= 0){ continue; }
